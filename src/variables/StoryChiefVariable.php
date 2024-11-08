@@ -7,10 +7,10 @@ use craft;
 
 class StoryChiefVariable
 {
-    public function getStoryChiefSections()
+    public function getStoryChiefSections(): array
     {
         $sections = [];
-        foreach (\Craft::$app->sections->getAllSections() as $section) {
+        foreach ((new craft\services\Entries())->getAllSections() as $section) {
             if ($section->type === 'channel') {
                 $sections[] = [
                     'label' => $section->name,
@@ -22,43 +22,43 @@ class StoryChiefVariable
         return $sections;
     }
 
-    public function getAllStoryChiefFields()
+    public function getAllStoryChiefFields(): array
     {
         $default_fields = [
             [
                 'label' => 'Content',
-                'name'  => 'content',
-                'type'  => 'textarea',
+                'name' => 'content',
+                'type' => 'textarea',
             ],
             [
                 'label' => 'Excerpt',
-                'name'  => 'excerpt',
-                'type'  => 'textarea',
+                'name' => 'excerpt',
+                'type' => 'textarea',
             ],
             [
                 'label' => 'Featured image',
-                'name'  => 'featured_image',
-                'type'  => 'image',
+                'name' => 'featured_image',
+                'type' => 'image',
             ],
             [
                 'label' => 'Tags',
-                'name'  => 'tags',
-                'type'  => 'tags',
+                'name' => 'tags',
+                'type' => 'tags',
             ],
             [
                 'label' => 'Categories',
-                'name'  => 'categories',
-                'type'  => 'categories',
+                'name' => 'categories',
+                'type' => 'categories',
             ],
             [
                 'label' => 'SEO Title',
-                'name'  => 'seo_title',
-                'type'  => 'text',
+                'name' => 'seo_title',
+                'type' => 'text',
             ],
             [
                 'label' => 'SEO Description',
-                'name'  => 'seo_description',
-                'type'  => 'textarea',
+                'name' => 'seo_description',
+                'type' => 'textarea',
             ],
         ];
 
@@ -73,12 +73,12 @@ class StoryChiefVariable
         $field = \Craft::$app->fields->getFieldByHandle($fieldHandle);
         $class = StoryChiefHelper::getStoryChiefFieldClass($field);
 
-        if (!$class || !class_exists($class)) {
+        if (! $class || ! class_exists($class)) {
             return null;
         }
 
         $scField = new $class();
-        if (!$scField instanceof StoryChiefFieldTypeInterface) {
+        if (! $scField instanceof StoryChiefFieldTypeInterface) {
             return null;
         }
 
@@ -89,8 +89,8 @@ class StoryChiefVariable
         foreach ($allFields as $item) {
             if (in_array($item['type'], $supportedTypes, true)) {
                 $options[] = [
-                  'label' => $item['label'],
-                  'value' => $item['name'],
+                    'label' => $item['label'],
+                    'value' => $item['name'],
                 ];
             }
         }
@@ -98,7 +98,7 @@ class StoryChiefVariable
         return empty($options) ? null : $options;
     }
 
-    public function getStoryChiefAuthorOptions()
+    public function getStoryChiefAuthorOptions(): array
     {
         return [
             [
@@ -112,14 +112,14 @@ class StoryChiefVariable
             [
                 'label' => 'Import or create new',
                 'value' => 'create',
-            ]
+            ],
         ];
     }
 
-    public function getStoryChiefEntryTypes($sectionID)
+    public function getStoryChiefEntryTypes($sectionID): array
     {
         $entryTypes = [];
-        foreach (\Craft::$app->sections->getEntryTypesBySectionId($sectionID) as $entryType) {
+        foreach (\Craft::$app->entries->getEntryTypesBySectionId($sectionID) as $entryType) {
             $entryTypes[] = [
                 'label' => $entryType->name,
                 'value' => $entryType->id,
@@ -129,20 +129,20 @@ class StoryChiefVariable
         return $entryTypes;
     }
 
-    public function getStoryChiefContentFields($entryTypeID)
+    public function getStoryChiefContentFields($entryTypeID): array
     {
         $fieldDefinitions = [];
 
-        $entryType = \Craft::$app->sections->getEntryTypeById($entryTypeID);
+        $entryType = \Craft::$app->entries->getEntryTypeById($entryTypeID);
 
-
-        $fields = $entryType->getFieldLayout()->getFields();
+        $fields = $entryType->getFieldLayout()->getCustomFields();
 
         foreach ($fields as $field) {
             $fieldDefinition = $field->getAttributes(['id', 'name', 'handle']);
             $fieldDefinition['required'] = $field->required === '1';
             $fieldDefinitions[] = $fieldDefinition;
         }
+
         return $fieldDefinitions;
     }
 }

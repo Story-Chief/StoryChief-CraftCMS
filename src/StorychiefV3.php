@@ -11,6 +11,7 @@
 namespace storychief\storychiefv3;
 
 use Craft;
+use craft\base\Model;
 use yii\base\Event;
 use craft\base\Plugin;
 use craft\services\Plugins;
@@ -38,16 +39,16 @@ class StorychiefV3 extends Plugin
      * @var StorychiefV3
      */
     public static $plugin;
-    
-    
+
+
     // Public Properties
     // =========================================================================
-    
+
     /**
      * @var string
      */
-    public $schemaVersion = '1.0.0';
-    public $hasCpSettings = true;
+    public string $schemaVersion = '1.0.0';
+    public bool $hasCpSettings = true;
 
     // Public Methods
     // =========================================================================
@@ -93,11 +94,12 @@ class StorychiefV3 extends Plugin
 
     // Protected Methods
     // =========================================================================
-    protected function createSettingsModel()
+    protected function createSettingsModel(): ?Model
     {
         return new Settings();
     }
-    protected function settingsHtml()
+
+    protected function settingsHtml(): ?string
     {
         $settings = $this->getSettings();
         $settings->validate();

@@ -2,42 +2,42 @@
 
 use Craft;
 use craft\base\Field;
-use craft\helpers\Db;
 use craft\elements\Tag;
+use craft\helpers\Db;
 
 class TagsStoryChiefFieldType implements StoryChiefFieldTypeInterface
 {
-    public function supportedStorychiefFieldTypes()
+    public function supportedStorychiefFieldTypes(): array
     {
         return [
             'tags',
             'select',
-            'checkbox'
+            'checkbox',
         ];
     }
 
-    public function prepFieldData(Field $field, $fieldData)
+    public function prepFieldData(Field $field, $fieldData): array
     {
         $preppedData = [];
 
         if (empty($fieldData)) {
             return $preppedData;
         }
-        if (!is_array($fieldData)) {
-            $fieldData = array($fieldData);
+
+        if (! is_array($fieldData)) {
+            $fieldData = [$fieldData];
         }
 
         $source = $field->source;
-        list($type, $groupUid) = explode(':', $source);
+        [$type, $groupUid] = explode(':', $source);
 
-        $tagGroup =  (new \craft\db\Query())
-        ->select(['id'])
-        ->from('{{%taggroups}}')
-        ->where(['uid' => $groupUid])
-        ->one();
+        $tagGroup = (new \craft\db\Query())
+            ->select(['id'])
+            ->from('{{%taggroups}}')
+            ->where(['uid' => $groupUid])
+            ->one();
 
         $groupId = $tagGroup['id'];
-
 
         // Find existing
         foreach ($fieldData as $tagName) {

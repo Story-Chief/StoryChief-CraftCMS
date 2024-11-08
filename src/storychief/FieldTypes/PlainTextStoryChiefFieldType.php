@@ -1,21 +1,20 @@
 <?php namespace storychief\storychiefv3\storychief\FieldTypes;
 
-use  craft\base\Field;
+use craft\base\Field;
 
 class PlainTextStoryChiefFieldType implements StoryChiefFieldTypeInterface
 {
-    public function supportedStorychiefFieldTypes()
+    public function supportedStorychiefFieldTypes(): array
     {
         return [
             'text',
             'textarea',
-            'excerpt'
+            'excerpt',
         ];
     }
 
-    public function prepFieldData(Field $field, $fieldData)
+    public function prepFieldData(Field $field, $fieldData): ?string
     {
-        $preppedData = $fieldData;
-        return $preppedData;
+        return $fieldData;
     }
 }

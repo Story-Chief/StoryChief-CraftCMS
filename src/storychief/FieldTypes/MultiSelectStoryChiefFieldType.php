@@ -1,25 +1,25 @@
 <?php namespace storychief\storychiefv3\storychief\FieldTypes;
 
-use  craft\base\Field;
+use craft\base\Field;
 
 class MultiSelectStoryChiefFieldType implements StoryChiefFieldTypeInterface
 {
-    public function supportedStorychiefFieldTypes()
+    public function supportedStorychiefFieldTypes(): array
     {
         return [
-            'select'
+            'select',
         ];
     }
 
-    public function prepFieldData(Field $field, $fieldData)
+    public function prepFieldData(Field $field, $fieldData): array
     {
         $preppedData = [];
 
         if (empty($fieldData)) {
             return $preppedData;
         }
-        if (!is_array($fieldData)) {
-            $fieldData = array($fieldData);
+        if (! is_array($fieldData)) {
+            $fieldData = [$fieldData];
         }
 
         $options = $field->options;

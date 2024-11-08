@@ -1,13 +1,12 @@
 <?php namespace storychief\storychiefv3\storychief\FieldTypes;
 
-use Craft;
-use  craft\base\Field;
-use craft\helpers\Db;
+use craft\base\Field;
 use craft\elements\Entry;
+use craft\helpers\Db;
 
 class EntriesStoryChiefFieldType implements StoryChiefFieldTypeInterface
 {
-    public function supportedStorychiefFieldTypes()
+    public function supportedStorychiefFieldTypes(): array
     {
         return [
             'select',
@@ -21,8 +20,8 @@ class EntriesStoryChiefFieldType implements StoryChiefFieldTypeInterface
         if (empty($fieldData)) {
             return $preppedData;
         }
-        if (!is_array($fieldData)) {
-            $fieldData = array($fieldData);
+        if (! is_array($fieldData)) {
+            $fieldData = [$fieldData];
         }
 
         // Find existing
