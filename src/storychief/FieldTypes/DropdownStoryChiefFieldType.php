@@ -1,17 +1,17 @@
 <?php namespace storychief\storychiefv3\storychief\FieldTypes;
 
-use  craft\base\Field;
+use craft\base\Field;
 
 class DropdownStoryChiefFieldType implements StoryChiefFieldTypeInterface
 {
-    public function supportedStorychiefFieldTypes()
+    public function supportedStorychiefFieldTypes(): array
     {
         return [
-            'select'
+            'select',
         ];
     }
 
-    public function prepFieldData(Field $field, $fieldData)
+    public function prepFieldData(Field $field, $fieldData): ?string
     {
         $preppedData = null;
 

@@ -5,18 +5,17 @@ use storychief\storychiefv3\storychief\Helpers\StoryChiefHelper;
 
 class LightswitchStoryChiefFieldType implements StoryChiefFieldTypeInterface
 {
-    public function supportedStorychiefFieldTypes()
+    public function supportedStorychiefFieldTypes(): array
     {
         return [
             'select',
             'radio',
-            'checkbox'
+            'checkbox',
         ];
     }
 
-    public function prepFieldData(Field $field, $fieldData)
+    public function prepFieldData(Field $field, $fieldData): bool
     {
-        $preppedData = StoryChiefHelper::parseBoolean($fieldData);
-        return $preppedData;
+        return StoryChiefHelper::parseBoolean($fieldData);
     }
 }

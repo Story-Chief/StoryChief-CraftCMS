@@ -25,7 +25,7 @@ use storychief\storychiefv3\storychief\FieldTypes\TagsStoryChiefFieldType;
 
 class StoryChiefHelper
 {
-    public static function parseBoolean($value)
+    public static function parseBoolean($value): bool
     {
         if (is_array($value)) {
             $value = array_shift($value);
@@ -46,7 +46,6 @@ class StoryChiefHelper
             $result = true;
         }
 
-
         if (strtolower($value) === Craft::t('app', 'no')) {
             $result = false;
         }
@@ -62,9 +61,9 @@ class StoryChiefHelper
         return $result;
     }
 
-    public static function getStoryChiefFieldClass($field)
+    public static function getStoryChiefFieldClass($field): ?string
     {
-        if (!$field) {
+        if (! $field) {
             return null;
         }
 
