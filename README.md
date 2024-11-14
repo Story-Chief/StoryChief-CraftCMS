@@ -1,10 +1,16 @@
-# StoryChief v3 plugin for Craft CMS 4.x
+# StoryChief Plugin for Craft CMS 4.x
 
 Craft CMS plugin to use with [StoryChief](https://storychief.io).
 
 ## Requirements
 
-This plugin requires Craft CMS 4.0.0 or later. (If you are using Craft CMS 3.x, you can find the [right plugin here](https://github.com/Story-Chief/craft-cms-module-storychief-v3/releases/tag/v1.0.12)
+| Craft CMS version | Branch                                                                             |
+|-------------------|------------------------------------------------------------------------------------|
+| Craft CMS 5       | [craft-cms-5](https://github.com/Story-Chief/StoryChief-CraftCMS/tree/craft-cms-5) |
+| Craft CMS 4       | [craft-cms-4](https://github.com/Story-Chief/StoryChief-CraftCMS/tree/craft-cms-4) |
+| Craft CMS 3       | [craft-cms-3](https://github.com/Story-Chief/StoryChief-CraftCMS/tree/craft-cms-3) |
+
+If you are still using Craft CMS 2.x, you can find the [right plugin here](https://github.com/Story-Chief/craft-cms-module-storychief).)
 
 ## Installation
 
