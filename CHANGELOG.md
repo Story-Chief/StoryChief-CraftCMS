@@ -1,8 +1,12 @@
-# Storychief v3 Changelog
+# Changelog
 
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
+
+## 3.0.12 - 2024-11-14
+### Fixed
+- Semantic versioning: match version number to Craft CMS version
 
 ## 1.0.12 - 2022-07-22
 ### Fixed
