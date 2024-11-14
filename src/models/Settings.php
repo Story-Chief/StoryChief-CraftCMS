@@ -15,8 +15,8 @@ class Settings extends Model
     public function rules(): array
     {
         return [
-          [['key', 'section', 'entry_type'], 'string'],
-          [['key', 'section', 'entry_type'], 'required'],
-    ];
+            [['key', 'section', 'entry_type'], 'string'],
+            [['key', 'section', 'entry_type'], 'required'],
+        ];
     }
 }

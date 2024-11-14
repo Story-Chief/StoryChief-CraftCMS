@@ -7,7 +7,7 @@ use craft\helpers\Assets;
 
 class AssetsStoryChiefFieldType implements StoryChiefFieldTypeInterface
 {
-    public function supportedStorychiefFieldTypes()
+    public function supportedStorychiefFieldTypes(): array
     {
         return [
             'featured_image',
@@ -15,11 +15,11 @@ class AssetsStoryChiefFieldType implements StoryChiefFieldTypeInterface
         ];
     }
 
-    public function prepFieldData(Field $field, $fieldData)
+    public function prepFieldData(Field $field, $fieldData): array
     {
         if ($field->restrictLocation) {
-            $volumeUID = explode(':', $field->restrictedLocationSource)[1];
-            $subPath = $field['restrictedLocationSubpath'];
+            $volumeUID = explode(':', $field->singleUploadLocationSource)[1];
+            $subPath = $field['singleUploadLocationSubpath'];
         } else {
             $volumeUID = explode(':', $field->defaultUploadLocationSource)[1];
             $subPath = $field['defaultUploadLocationSubpath'];
@@ -28,23 +28,21 @@ class AssetsStoryChiefFieldType implements StoryChiefFieldTypeInterface
         $volumeID = Craft::$app->getVolumes()->getVolumeByUid($volumeUID)->id;
         $folderID = Craft::$app->assets->getRootFolderByVolumeId($volumeID)->id;
 
-        $preppedData = [];        
+        $preppedData = [];
 
         // get remote image and store in temp path
         $imageInfo = pathinfo($fieldData);
-        $tempPath = Craft::$app->getPath()->getTempPath() . DIRECTORY_SEPARATOR . $imageInfo['basename'];
+        $tempPath = Craft::$app->getPath()->getTempPath().DIRECTORY_SEPARATOR.$imageInfo['basename'];
         $filename = Assets::prepareAssetName($imageInfo['basename']);
 
         // Look if the filename already exists and so the existing asset
-        $asset = Asset::find()->where(
-            [
-                'assets.volumeID' => $volumeID, 
-                'assets.folderId' => $folderID, 
-                'assets.filename' => $filename
-            ]
-        )->one();
+        $asset = Asset::find()->where([
+            'assets.volumeID' => $volumeID,
+            'assets.folderId' => $folderID,
+            'assets.filename' => $filename,
+        ])->one();
 
-        if (!$asset) {            
+        if (! $asset) {
             file_put_contents($tempPath, fopen($fieldData, 'r'));
 
             $asset = new Asset();
@@ -55,7 +53,7 @@ class AssetsStoryChiefFieldType implements StoryChiefFieldTypeInterface
             $asset->folderPath = $subPath;
             $asset->avoidFilenameConflicts = true;
 
-            if (!Craft::$app->elements->saveElement($asset)) {
+            if (! Craft::$app->elements->saveElement($asset)) {
                 $asset = null; // The response failed
             }
         }

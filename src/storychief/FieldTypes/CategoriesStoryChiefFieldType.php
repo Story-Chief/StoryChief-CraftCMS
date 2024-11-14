@@ -1,18 +1,18 @@
 <?php namespace storychief\storychiefv3\storychief\FieldTypes;
 
 use Craft;
-use craft\helpers\Db;
-use  craft\base\Field;
+use craft\base\Field;
 use craft\elements\Category;
+use craft\helpers\Db;
 
 class CategoriesStoryChiefFieldType implements StoryChiefFieldTypeInterface
 {
-    public function supportedStorychiefFieldTypes()
+    public function supportedStorychiefFieldTypes(): array
     {
         return [
             'categories',
             'select',
-            'checkbox'
+            'checkbox',
         ];
     }
 
@@ -20,14 +20,13 @@ class CategoriesStoryChiefFieldType implements StoryChiefFieldTypeInterface
     {
         $preppedData = [];
         $categoryGroupUID = str_replace('group:', '', $field->source);
-        $categoryGroup =  (new \craft\db\Query())
-        ->select(['id'])
-        ->from('{{%categorygroups}}')
-        ->where(['uid' => $categoryGroupUID])
-        ->one();
+        $categoryGroup = (new \craft\db\Query())
+            ->select(['id'])
+            ->from('{{%categorygroups}}')
+            ->where(['uid' => $categoryGroupUID])
+            ->one();
 
         $categoryGroupID = $categoryGroup['id'];
-
 
         $limit = count($fieldData);
         if (isset($field->settings['limit']) && $field->settings['limit']) {
@@ -42,8 +41,7 @@ class CategoriesStoryChiefFieldType implements StoryChiefFieldTypeInterface
             $criteria->title = Db::escapeParam($categoryName);
             $category = $criteria->one();
 
-
-            if (!$category) {
+            if (! $category) {
                 $category = new Category();
                 $category->groupId = $categoryGroupID;
                 $category->title = $categoryName;
