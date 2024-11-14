@@ -10,7 +10,7 @@ Craft CMS plugin to use with [StoryChief](https://storychief.io).
 | Craft CMS 4       | [craft-cms-4](https://github.com/Story-Chief/StoryChief-CraftCMS/tree/craft-cms-4) |
 | Craft CMS 3       | [craft-cms-3](https://github.com/Story-Chief/StoryChief-CraftCMS/tree/craft-cms-3) |
 
-If you are still using Craft CMS 2.x, you can find the [right plugin here](https://github.com/Story-Chief/craft-cms-module-storychief).)
+If you are still using Craft CMS 2.x, you can find the [right plugin here](https://github.com/Story-Chief/craft-cms-module-storychief).
 
 ## Installation
 
